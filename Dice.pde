@@ -4,6 +4,16 @@ int windowSize = 530;
 
 ArrayList<Integer> rolls = new ArrayList<Integer>();
 
+void getLength(ArrayList<Integer> list) {
+  int length = 0;
+
+  for (Integer num : list) {
+    length++;
+  }
+
+  return length;
+}
+
 void setup()
 {
   size(530, 730);
@@ -17,7 +27,7 @@ void drawGraph(ArrayList<Integer> points) {
     frequencies.add(0);
   }
   
-  for (int i = 0; i < points.size(); i++) {
+  for (int i = 0; i < getLength(points); i++) {
     int currentValue = frequencies.get(points.get(i)-1);
     
     frequencies.set(points.get(i)-1, currentValue + 1);
@@ -70,7 +80,7 @@ void drawGraph(ArrayList<Integer> points) {
     }
   }
   
-  graphScale = maxRoll / (float)points.size();
+  graphScale = maxRoll / (float)(getLength(points));
   graphScale += 0.1;
   
   noStroke();
@@ -79,7 +89,7 @@ void drawGraph(ArrayList<Integer> points) {
   for (int i = 0; i <= 5; i++) {
     // could error here try int not double
     float newAmt = frequencies.get(i);
-    float newFreq = newAmt/ (float)points.size(); // Percentage
+    float newFreq = newAmt/ (float)(getLength(points)); // Percentage
     float newHeight = newFreq*(yMin-yMax)/graphScale;
     float newWidth = (xMax-xMin)/6;
     
