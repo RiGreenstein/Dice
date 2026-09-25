@@ -65,6 +65,19 @@ void drawGraph(ArrayList<Integer> points) {
   text("Dice Roll (x)", 5, yMin + 34);
   */
   
+  // Calculate scale
+  float graphScale = 100;
+  float maxRoll = 0;
+  
+  for (int i = 0; i <= 5; i++) {
+    if (frequencies.get(i) > maxRoll) {
+      maxRoll = frequencies.get(i);
+    }
+  }
+  
+  graphScale = maxRoll / (float)(getLength(points));
+  graphScale += 0.1;
+  
   // Horizontal Indicator Bars/Text
   textSize(15);
   textAlign(CENTER);
@@ -83,22 +96,10 @@ void drawGraph(ArrayList<Integer> points) {
   textAlign(RIGHT);
   for (int i = 0; i <= 4; i++) {
     line(xMin-10, yMin - i*heightInterval, xMin-1, yMin - i*heightInterval);
-    text(str(round(i*heightInterval/4)) + "%", xMin-15, yMin-i*heightInterval+4);
+    text(str(round(i/4.0*graphScale*100)) + "%", xMin-15, yMin-i*heightInterval+4);
   }
   
-  // Draw Bars
-  float graphScale = 100;
-  float maxRoll = 0;
-  
-  for (int i = 0; i <= 5; i++) {
-    if (frequencies.get(i) > maxRoll) {
-      maxRoll = frequencies.get(i);
-    }
-  }
-  
-  graphScale = maxRoll / (float)(getLength(points));
-  graphScale += 0.1;
-  
+  // Draw Bars 
   noStroke();
   fill(110);
   
@@ -123,7 +124,7 @@ void draw(){
   //your code here
   background(0, 0, 0);
   
-  rolls.clear();
+  //rolls.clear();
   
   for (int y = 5; y <= 500; y+= 105) {
     for (int x = 5; x < windowSize; x += 105) {
@@ -138,12 +139,10 @@ void draw(){
 }
 void mousePressed()
 {
-  rolls.clear();
   redraw();
 }
 
 void keyPressed() {
-  rolls.clear();
   redraw();
 }
 
