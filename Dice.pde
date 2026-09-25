@@ -1,23 +1,28 @@
 import java.util.ArrayList;
 
+PFont BoldFont;
+
 int windowSize = 530;
 
 ArrayList<Integer> rolls = new ArrayList<Integer>();
 
-void getLength(ArrayList<Integer> list) {
-  int length = 0;
+int getLength(ArrayList<Integer> list) {
+  int listLength = 0;
 
   for (Integer num : list) {
-    length++;
+    listLength++;
   }
 
-  return length;
+  return listLength;
 }
 
 void setup()
 {
   size(530, 730);
   noLoop();
+  
+  BoldFont = createFont("BoldFont.ttf", 10);
+  textFont(BoldFont);
 }
 
 void drawGraph(ArrayList<Integer> points) {
@@ -48,10 +53,10 @@ void drawGraph(ArrayList<Integer> points) {
   int heightInterval = (yMin-yMax)/4;
   
   // Baseline
-  line(xMin, yMin, xMax, yMin);
+  line(xMin + 3, yMin, xMax, yMin);
   
   // Vertical Lines
-  line(xMin, yMin, xMin, yMax);
+  line(xMin, yMin, xMin, yMax+2);
   
   // X-axis text
   
@@ -60,14 +65,25 @@ void drawGraph(ArrayList<Integer> points) {
   text("Dice Roll (x)", 5, yMin + 34);
   */
   
-  // Horizontal Indicator Bars
-  for (int i = 1; i <= 6; i++) {
-    line(xMin + i*barWidth, yMin, xMin + i*barWidth, yMin + 10);
+  // Horizontal Indicator Bars/Text
+  textSize(15);
+  textAlign(CENTER);
+  for (int i = 0; i <= 6; i++) {
+    line(xMin + i*barWidth, yMin+1, xMin + i*barWidth, yMin + 10);
+    text(i, xMin + i*barWidth, yMin+30);
   }
   
-  // Vertical Indicator Bars
-  for (int i = 1; i <= 4; i++) {
-    line(xMin-10, yMin - i*heightInterval, xMin, yMin - i*heightInterval);
+  /* Zero Text
+  textSize(10);
+  text("0", 30, yMin+12);
+  */
+  
+  // Vertical Indicator Bars/Text
+  textSize(10);
+  textAlign(RIGHT);
+  for (int i = 0; i <= 4; i++) {
+    line(xMin-10, yMin - i*heightInterval, xMin-1, yMin - i*heightInterval);
+    text(String.valueOf(i*heightInterval/4) + "%", xMin-15, yMin-i*heightInterval+4);
   }
   
   // Draw Bars
@@ -107,6 +123,8 @@ void draw(){
   //your code here
   background(0, 0, 0);
   
+  rolls.clear();
+  
   for (int y = 5; y <= 500; y+= 105) {
     for (int x = 5; x < windowSize; x += 105) {
       Die one = new Die(x, y);
@@ -123,6 +141,12 @@ void mousePressed()
   rolls.clear();
   redraw();
 }
+
+void keyPressed() {
+  rolls.clear();
+  redraw();
+}
+
 class Die //models one single dice cube
 {
   //variable declarations here
