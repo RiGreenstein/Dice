@@ -1,6 +1,5 @@
-/* @pjs font="BoldFont.ttf"; */
-
 import java.util.ArrayList;
+
 PFont BoldFont;
 
 int windowSize = 530;
@@ -84,7 +83,7 @@ void drawGraph(ArrayList<Integer> points) {
   textAlign(RIGHT);
   for (int i = 0; i <= 4; i++) {
     line(xMin-10, yMin - i*heightInterval, xMin-1, yMin - i*heightInterval);
-    text(String.valueOf(i*heightInterval/4) + "%", xMin-15, yMin-i*heightInterval+4);
+    text(str(round(i*heightInterval/4)) + "%", xMin-15, yMin-i*heightInterval+4);
   }
   
   // Draw Bars
