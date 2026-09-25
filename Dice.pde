@@ -1,5 +1,6 @@
-import java.util.ArrayList;
+/* @pjs font="BoldFont.ttf"; */
 
+import java.util.ArrayList;
 PFont BoldFont;
 
 int windowSize = 530;
