@@ -32,10 +32,13 @@ void drawGraph(ArrayList<Integer> points) {
     frequencies.add(0);
   }
   
+  int totalScore = 0;
+  
   for (int i = 0; i < getLength(points); i++) {
     int currentValue = frequencies.get(points.get(i)-1);
     
     frequencies.set(points.get(i)-1, currentValue + 1);
+    totalScore+= points.get(i);
   }
   
   // Draw lines
@@ -117,6 +120,11 @@ void drawGraph(ArrayList<Integer> points) {
     
     rect(topX, topY, bottomX, bottomY, 3);
   }
+  
+  // Draw Total Text
+  textSize(20);
+  textAlign(RIGHT);
+  text("Total of dice: " + str(totalScore), windowSize - 10, windowSize + 25);
 }
 
 
